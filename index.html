@@ -10,12 +10,29 @@
     <body>
         <script type="text/javascript" charset="utf-8">
         
-        //initializing translodit script when JotForm us ready
         //when form is ready
         JFCustomWidget.subscribe("ready", function(msg){
             //remember that this should be registered as parameter during registrarion of your widget
             //user want to use this widget should provide a valid API Key
-            //var apiKey = JFCustomWidget.getQueryString("key");            
+            var advertiserId = JFCustomWidget.getQueryString("awin_advertiser_id");        
+            var orderTotal = JFCustomWidget.getQueryString("order_total");        
+            console.log({advertiserId: advertiserId, orderTotal: orderTotal});
+            
+            //<![CDATA[ /*** Do not change ***/
+            var AWIN = {};
+            AWIN.Tracking = {};
+            AWIN.Tracking.Sale = {};
+
+            /*** Set your transaction parameters ***/
+            AWIN.Tracking.Sale.amount = "{{order_total}}";
+            AWIN.Tracking.Sale.orderRef = "{{order_ref}}";
+            AWIN.Tracking.Sale.parts = "DEFAULT:{{order_total}}";
+            AWIN.Tracking.Sale.voucher = "{{voucher_code}}";
+            AWIN.Tracking.Sale.currency = "{{currency_code}}";
+            AWIN.Tracking.Sale.test = "1";
+            AWIN.Tracking.Sale.channel = "aw";
+            //]]>
+            
         });            
         </script>
     </body>
